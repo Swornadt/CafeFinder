@@ -1,0 +1,25 @@
+//using the haversine formula for distance between two points
+export function getDistance(lat1, lon1, lat2, lon2) {
+  const R = 6371; // km
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) ** 2;
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c; // distance in km
+}
+
+// // Filter nearest X cafes
+// const maxCafes = 10;
+// const cafesWithDistance = cafes.map((cafe) => ({
+//   ...cafe,
+//   distance: getDistance(center[0], center[1], cafe.lat, cafe.lon),
+// }));
+// const nearestCafes = cafesWithDistance
+//   .sort((a, b) => a.distance - b.distance)
+//   .slice(0, maxCafes);
+
+//   export default nearestCafes;
