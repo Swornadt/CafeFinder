@@ -11,15 +11,3 @@ export function getDistance(lat1, lon1, lat2, lon2) {
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c; // distance in km
 }
-
-// // Filter nearest X cafes
-// const maxCafes = 10;
-// const cafesWithDistance = cafes.map((cafe) => ({
-//   ...cafe,
-//   distance: getDistance(center[0], center[1], cafe.lat, cafe.lon),
-// }));
-// const nearestCafes = cafesWithDistance
-//   .sort((a, b) => a.distance - b.distance)
-//   .slice(0, maxCafes);
-
-//   export default nearestCafes;

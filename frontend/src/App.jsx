@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import SearchBar from "./components/SearchBar";
 import CafeList from "./components/CafeList";
 import MapView from "./components/MapView";
 
 import { getUserLocation } from "./assets/getUserLocation";
+import { fetchNearestCafe } from "./assets/fetchCafes";
 
 export default function App() {
   const [cafes, setCafes] = useState([]);
@@ -17,8 +17,8 @@ export default function App() {
   useEffect(() => {
     getUserLocation()
       .then(([lat, lon]) => {
-        setCenter({lat, lon});
-        setUserLocation({lat, lon});
+        setCenter({ lat, lon });
+        setUserLocation({ lat, lon });
       })
       .catch((error) => {
         console.warn("Geolocation failed, using default:", error);
@@ -26,22 +26,14 @@ export default function App() {
   }, []);
 
   const handleSearch = async (location) => {
-    if (!location.trim()) return alert("Please enter a location");
     setLoading(true);
     try {
-      const geoRes = await axios.get(
-        `http://localhost:5000/api/geocode?q=${encodeURIComponent(location)}`
-      );
-      const { lat, lon } = geoRes.data;
-      setCenter([lat, lon]);
-
-      const cafesRes = await axios.get(
-        `http://localhost:5000/api/cafes?lat=${lat}&lon=${lon}`
-      );
-      setCafes(cafesRes.data.cafes);
+      const {nearestCafes, regionCenter} = await fetchNearestCafe(location, userLocation, 10);
+      setCafes(nearestCafes);
+      setCenter(regionCenter);  
     } catch (error) {
       console.error(error);
-      alert("Failed to fetch cafes");
+      alert(error.message || "Failed to fetch cafes");
     } finally {
       setLoading(false);
     }
@@ -76,7 +68,12 @@ export default function App() {
 
         {/* Map */}
         <div className="md:w-2/3 rounded-2xl overflow-hidden shadow-lg">
-          <MapView cafes={cafes} center={userLocation || center} selectedCafe={selectedCafe || userLocation} userLocation={userLocation}/>
+          <MapView
+            cafes={cafes}
+            center={userLocation || center}
+            selectedCafe={selectedCafe || userLocation}
+            userLocation={userLocation}
+          />
         </div>
       </div>
     </div>
