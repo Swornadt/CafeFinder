@@ -76,7 +76,7 @@ export default function App() {
 
         {/* Map */}
         <div className="md:w-2/3 rounded-2xl overflow-hidden shadow-lg">
-          <MapView cafes={cafes} center={userLocation || center} selectedCafe={selectedCafe || userLocation} />
+          <MapView cafes={cafes} center={userLocation || center} selectedCafe={selectedCafe || userLocation} userLocation={userLocation}/>
         </div>
       </div>
     </div>

@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { defaultIcon, highlightedIcon } from "../assets/markers";
+import { defaultIcon, highlightedIcon, userIcon } from "../assets/markers";
 import MapFlyTo from "../hooks/MapFlyTo";
 
 export default function MapView({ cafes, center, selectedCafe, userLocation }) {
@@ -17,6 +17,8 @@ export default function MapView({ cafes, center, selectedCafe, userLocation }) {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <MapFlyTo cafe={selectedCafe || userLocation} />
+        
+        {/* Cafe Marker */}
         {cafes.map((cafe) => (
           <Marker
             key={cafe.id}
@@ -30,6 +32,13 @@ export default function MapView({ cafes, center, selectedCafe, userLocation }) {
             </Popup>
           </Marker>
         ))}
+
+        {/* User location marker */}
+        {userLocation?.lat && userLocation?.lon && (
+          <Marker position={[userLocation.lat, userLocation.lon]} icon={userIcon}>
+            <Popup>📍 You are here</Popup>
+          </Marker>
+        )}
       </MapContainer>
     </div>
   );
