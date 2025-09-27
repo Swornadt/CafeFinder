@@ -1,10 +1,10 @@
 🗺️ Map & Marker System (Leaflet)
 
-Integrated Leaflet map in React and displayed cafes as markers.
+Integrated Leaflet in React and displayed cafes as markers.
 
-Implemented custom map center state (center) and dynamic updates.
+Implemented custom map center state and dynamic updates.
 
-Created a MapFlyTo feature:
+MapFlyTo feature:
 
 Map animates and zooms into a cafe when a card is clicked.
 
@@ -12,9 +12,11 @@ Selected marker is highlighted with a custom icon.
 
 Handled marker customization:
 
-Changed default marker icons for cafes and user location.
+Replaced default markers with custom icons for cafes and user location.
 
-Fixed asset import path issues and ensured proper contrast.
+Fixed asset import path issues for icons.
+
+Map height and layout were adjusted to prevent full-page scroll while keeping the cafe list scrollable separately.
 
 📍 Geolocation & User Position
 
@@ -30,57 +32,99 @@ Used the user’s location as a reference point for distance calculations.
 
 🧠 Distance & Proximity Logic
 
-Learned and implemented the Haversine formula to calculate distance between two latitude/longitude points.
+Learned and implemented Haversine formula for calculating distances between latitude/longitude points.
 
-Used distance calculations to:
+Distance used to:
 
-Filter cafes and sort by proximity.
+Filter cafes within a dynamic radius.
 
-Display only the nearest 10 cafes relative to user location or search center.
+Sort and display nearest cafes first.
+
+Display distance directly in cafe cards.
+
+Added dynamic radius and max cafe filtering using sliders, updating map and list in real-time.
 
 🔎 Search & Geocoding
 
-Added location search functionality:
+Implemented location search with backend /api/geocode endpoint using Nominatim (OpenStreetMap).
 
-Used a backend endpoint (/api/geocode) to convert text queries into coordinates.
+Queried backend /api/cafes endpoint to find cafes near the searched location.
 
-Queried backend (/api/cafes) to find cafes near the searched region.
+Combined geocoding results and user location to compute nearest cafes.
 
-Combined geocoding result and user location to find nearest cafes in a region.
+Problems faced:
+
+Initial “q is not defined” error solved by passing the correct query parameter to the Nominatim service.
+
+Debugged coordinate fetching and axios requests for proper integration with React frontend.
 
 🧰 Code Organization & Refactoring
 
-Refactored core logic out of App.jsx into separate utility files for maintainability:
+Refactored core logic out of App.jsx into separate utilities:
 
-getUserLocation.js — geolocation logic.
+getUserLocation.js – geolocation logic.
 
-getDistance.js — Haversine formula utility.
+getDistance.js – Haversine formula utility.
 
-fetchCafes.js — combined geocoding, cafe fetching, and distance filtering.
+fetchCafes.js – combined geocoding, cafe fetching, filtering by distance, and max results.
 
-Improved readability and reusability of codebase.
+Backend organized into controllers, routes, and services for clarity:
+
+geocodeController.js, nominatimService.js, cafesController.js, overpassService.js
+
+Improved readability, maintainability, and reusability.
 
 🧑‍💻 UI & UX Enhancements
 
-Adjusted map size and layout to improve balance with the cafe list.
+Refined layout:
 
-Limited the list length to nearest results for cleaner UI.
+Divided page into left and right columns: left for search, controls, and cafe list; right for map.
 
-Plan to show distance in cafe cards (enabled by Haversine logic).
+Adjusted map height to prevent full-page scroll.
 
-Discussed dynamic highlighting of markers when selected.
+Implemented Controls Card:
 
-Prepared UI for responsive, user-centered design (show relevant, nearby data first).
+Combined radius and max cafes sliders in one card.
+
+Sliders visually improved and responsive with modern rounded style.
+
+Updated to dark theme:
+
+Changed background colors, header, search bar, controls, and cafe cards for better contrast.
+
+Cafe cards now display distance in km prominently.
+
+⚡ Problems & Solutions
+
+| Problem                                      | Solution / Debugging                                                                    |
+| -------------------------------------------- | --------------------------------------------------------------------------------------- |
+| `q is not defined` in geocoding              | Fixed by passing correct parameter to `fetchCoordinates` service.                       |
+| Map height causing full-page scroll          | Split layout with left column scrollable (`CafeList`) and map fixed height.             |
+| Search sliders not updating map in real-time | Used React `useEffect` on slider state and passed dynamic parameters to fetch function. |
+| Marker icon import failing                   | Corrected asset path and ensured Leaflet uses proper image URLs.                        |
+| Handling empty search input                  | Added validation in `handleSearch` to alert user.                                       |
 
 
-| Concept                         | What You Did / Learned                                        |
-| ------------------------------- | ------------------------------------------------------------- |
-| **React state & props**         | Used state to control map center, selected cafe, and loading. |
-| **Leaflet Map API**             | Implemented dynamic fly-to, custom markers, and map layers.   |
-| **Geolocation API**             | Accessed user’s location and used it in calculations.         |
-| **Haversine Formula**           | Calculated real-world distances between coordinates.          |
-| **Async/Await & Promises**      | Managed asynchronous API calls cleanly.                       |
-| **Axios**                       | Used for geocoding and fetching nearby cafes from backend.    |
-| **Refactoring & modular code**  | Separated logic into utilities to keep components lean.       |
-| **Error handling & fallback**   | Handled geolocation errors and search input validation.       |
-| **Dynamic filtering & sorting** | Prioritized cafes by proximity.                               |
+🌐 Backend
+
+Built Express server with two endpoints:
+
+/api/geocode – converts text location to coordinates.
+
+/api/cafes – fetches cafes near coordinates using Overpass API.
+
+Used Axios for external API calls.
+
+| Concept                         | Usage / Learning                                                       |
+| ------------------------------- | ---------------------------------------------------------------------- |
+| **React state & props**         | Controlled map center, selected cafe, loading states, sliders.         |
+| **Leaflet Map API**             | Dynamic fly-to, custom markers, map layers, popups.                    |
+| **Geolocation API**             | Accessed user’s location for distance calculations.                    |
+| **Haversine Formula**           | Calculated real-world distances between coordinates.                   |
+| **Async/Await & Promises**      | Managed API calls and data fetching cleanly.                           |
+| **Axios**                       | Used for geocoding and fetching nearby cafes.                          |
+| **Modular code & refactoring**  | Utilities, controllers, services, routes.                              |
+| **Error handling & fallback**   | Handled missing params, API errors, geolocation fallback.              |
+| **UI/UX design in React**       | Dark theme, responsive layout, controls card, map/list column layout.  |
+| **Dynamic filtering & sorting** | Filtered cafes by radius and max count; updated map/list in real-time. |
+| **Tailwind CSS**                | Styled components for modern, responsive, dark theme UI.               |

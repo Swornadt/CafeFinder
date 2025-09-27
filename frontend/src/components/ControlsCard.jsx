@@ -2,13 +2,13 @@ import React from 'react';
 
 const ControlsCard = ({radius, setRadius, maxCafes, setMaxCafes}) => {
     return (
-        <div className="max-w-lg bg-white p-4 rounded-xl shadow-md mb-4 space-y-6 my-6">
+        <div className="bg-gray-800 text-gray-100 max-w-lg p-4 rounded-xl shadow-md mb-4 space-y-6 my-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           
           {/* Search Radius */}
           <div>
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-semibold text-gray-800">
+              <h3 className="text-sm font-semibold text-gray-100">
                 Search Radius
               </h3>
               <span className="text-xs px-2 py-1 bg-blue-100 text-blue-600 rounded-full font-medium">
@@ -29,7 +29,7 @@ const ControlsCard = ({radius, setRadius, maxCafes, setMaxCafes}) => {
           {/* Max Cafes */}
           <div>
             <div className="flex justify-between items-center mb-2">
-              <h3 className="text-sm font-semibold text-gray-800">
+              <h3 className="text-sm font-semibold text-gray-100">
                 Maximum Cafes
               </h3>
               <span className="text-xs px-2 py-1 bg-yellow-100 text-yellow-600 rounded-full font-medium">

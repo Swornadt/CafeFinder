@@ -49,16 +49,13 @@ export default function App() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
-
-      <Header/>
+    <div className="h-screen flex flex-col bg-gray-900 text-gray-100">
+      <Header className="bg-gray-800 text-white" />
 
       {/* Main content */}
       <div className="flex flex-col md:flex-row gap-6 px-8 mt-8">
-
         {/* Left Column: Controls */}
         <div className="md:w-1/3 flex flex-col gap-4">
-
           <SearchBar onSearch={handleSearch} />
 
           {/* Controls Card */}
@@ -69,7 +66,7 @@ export default function App() {
             setMaxCafes={setMaxCafes}
           />
           {/* Cafe List */}
-          <div className="bg-white shadow-lg rounded-2xl p-4 overflow-y-auto max-h-[50vh] flex-1">
+          <div className="bg-gray-800 text-gray-100 shadow-lg rounded-2xl p-4 overflow-y-auto max-h-[50vh] flex-1">
             {loading ? (
               <p className="text-center text-gray-500">Loading cafes...</p>
             ) : cafes.length === 0 ? (
@@ -83,7 +80,7 @@ export default function App() {
         </div>
 
         {/* Right column: Map */}
-        <div className="md:w-2/3 rounded-2xl overflow-hidden shadow-lg h-[80vh]">
+        <div className="md:w-2/3 rounded-2xl overflow-hidden shadow-lg h-[80vh] border border-gray-700">
           <MapView
             cafes={cafes}
             center={userLocation || center}
