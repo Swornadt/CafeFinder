@@ -55,35 +55,39 @@ export default function App() {
       </header>
 
       {/* Search */}
-      <div className="max-w-2xl mx-auto mt-8">
-        <SearchBar onSearch={handleSearch} />
-      </div>
-
-      {/* Controls Card */}
-      <ControlsCard
-        radius={radius}
-        setRadius={setRadius}
-        maxCafes={maxCafes}
-        setMaxCafes={setMaxCafes}
-      />
+      <div className="max-w-2xl mx-auto mt-8"></div>
 
       {/* Main content */}
       <div className="flex flex-col md:flex-row gap-6 px-8 mt-8">
-        {/* Cafe List */}
-        <div className="md:w-1/3 bg-white shadow-lg rounded-2xl p-4 overflow-y-auto max-h-[80vh]">
-          {loading ? (
-            <p className="text-center text-gray-500">Loading cafes...</p>
-          ) : cafes.length === 0 ? (
-            <p className="text-center text-gray-400">
-              No cafes found yet. Try searching!
-            </p>
-          ) : (
-            <CafeList cafes={cafes} onSelectCafe={setSelectedCafe} />
-          )}
+
+        {/* Left Column: Controls */}
+        <div className="md:w-1/3 flex flex-col gap-4">
+
+          <SearchBar onSearch={handleSearch} />
+
+          {/* Controls Card */}
+          <ControlsCard
+            radius={radius}
+            setRadius={setRadius}
+            maxCafes={maxCafes}
+            setMaxCafes={setMaxCafes}
+          />
+          {/* Cafe List */}
+          <div className="bg-white shadow-lg rounded-2xl p-4 overflow-y-auto max-h-[60vh] flex-1">
+            {loading ? (
+              <p className="text-center text-gray-500">Loading cafes...</p>
+            ) : cafes.length === 0 ? (
+              <p className="text-center text-gray-400">
+                No cafes found yet. Try searching!
+              </p>
+            ) : (
+              <CafeList cafes={cafes} onSelectCafe={setSelectedCafe} />
+            )}
+          </div>
         </div>
 
-        {/* Map */}
-        <div className="md:w-2/3 rounded-2xl overflow-hidden shadow-lg">
+        {/* Right column: Map */}
+        <div className="md:w-2/3 rounded-2xl overflow-hidden shadow-lg h-[80vh]">
           <MapView
             cafes={cafes}
             center={userLocation || center}
