@@ -5,6 +5,7 @@ import MapView from "./components/MapView";
 
 import { getUserLocation } from "./utils/getUserLocation";
 import { fetchNearestCafe } from "./utils/fetchCafes";
+import ControlsCard from "./components/ControlsCard";
 
 export default function App() {
   const [cafes, setCafes] = useState([]);
@@ -58,33 +59,13 @@ export default function App() {
         <SearchBar onSearch={handleSearch} />
       </div>
 
-      <div className="my-4">
-        <label className="block text-sm font-semibold mb-1">Max Distance</label>
-        <input
-          type="range"
-          min="0.5"
-          max="10"
-          value={radius}
-          onChange={(e) => setRadius(Number(e.target.value))}
-          className="w-full"
-        />
-        <p className="text-sm text-gray-500">{radius} km</p>
-      </div>
-
-      <div className="flex items-center gap-4 my-4">
-        <label htmlFor="maxCafes" className="text-gray-700 font-medium">
-          Show up to: {maxCafes} cafes
-        </label>
-        <input
-          type="range"
-          id="maxCafes"
-          min="5"
-          max="50"
-          value={maxCafes}
-          onChange={(e) => setMaxCafes(Number(e.target.value))}
-          className="w-64 accent-yellow-500"
-        />
-      </div>
+      {/* Controls Card */}
+      <ControlsCard
+        radius={radius}
+        setRadius={setRadius}
+        maxCafes={maxCafes}
+        setMaxCafes={setMaxCafes}
+      />
 
       {/* Main content */}
       <div className="flex flex-col md:flex-row gap-6 px-8 mt-8">

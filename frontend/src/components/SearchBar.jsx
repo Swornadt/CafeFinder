@@ -18,7 +18,7 @@ export default function SearchBar({ onSearch }) {
         onClick={() => onSearch(location)}
         className="px-6 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition"
       >
-        🔍 Search
+        Search
       </button>
     </div>
   );
