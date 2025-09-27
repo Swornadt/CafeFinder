@@ -12,6 +12,8 @@ export default function App() {
   const [selectedCafe, setSelectedCafe] = useState(null);
   const [loading, setLoading] = useState(false);
   const [userLocation, setUserLocation] = useState(null);
+  const [maxCafes, setMaxCafes] = useState(10);
+  const [radius, setRadius] = useState(5); //max distance
 
   //getting user location
   useEffect(() => {
@@ -28,9 +30,14 @@ export default function App() {
   const handleSearch = async (location) => {
     setLoading(true);
     try {
-      const {nearestCafes, regionCenter} = await fetchNearestCafe(location, userLocation, 10);
+      const { nearestCafes, regionCenter } = await fetchNearestCafe(
+        location,
+        userLocation || location,
+        maxCafes,
+        radius
+      );
       setCafes(nearestCafes);
-      setCenter(regionCenter);  
+      setCenter(regionCenter);
     } catch (error) {
       console.error(error);
       alert(error.message || "Failed to fetch cafes");
@@ -49,6 +56,34 @@ export default function App() {
       {/* Search */}
       <div className="max-w-2xl mx-auto mt-8">
         <SearchBar onSearch={handleSearch} />
+      </div>
+
+      <div className="my-4">
+        <label className="block text-sm font-semibold mb-1">Max Distance</label>
+        <input
+          type="range"
+          min="0.5"
+          max="10"
+          value={radius}
+          onChange={(e) => setRadius(Number(e.target.value))}
+          className="w-full"
+        />
+        <p className="text-sm text-gray-500">{radius} km</p>
+      </div>
+
+      <div className="flex items-center gap-4 my-4">
+        <label htmlFor="maxCafes" className="text-gray-700 font-medium">
+          Show up to: {maxCafes} cafes
+        </label>
+        <input
+          type="range"
+          id="maxCafes"
+          min="5"
+          max="50"
+          value={maxCafes}
+          onChange={(e) => setMaxCafes(Number(e.target.value))}
+          className="w-64 accent-yellow-500"
+        />
       </div>
 
       {/* Main content */}
