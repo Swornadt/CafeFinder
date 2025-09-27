@@ -6,6 +6,7 @@ import MapView from "./components/MapView";
 import { getUserLocation } from "./utils/getUserLocation";
 import { fetchNearestCafe } from "./utils/fetchCafes";
 import ControlsCard from "./components/ControlsCard";
+import Header from "./components/Header";
 
 export default function App() {
   const [cafes, setCafes] = useState([]);
@@ -48,14 +49,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Header of App */}
-      <header className="bg-white shadow-md py-4 px-8 text-2xl font-bold text-gray-800">
-        ☕ Cafe Finder
-      </header>
+    <div className="h-screen flex flex-col bg-gray-50">
 
-      {/* Search */}
-      <div className="max-w-2xl mx-auto mt-8"></div>
+      <Header/>
 
       {/* Main content */}
       <div className="flex flex-col md:flex-row gap-6 px-8 mt-8">
@@ -73,7 +69,7 @@ export default function App() {
             setMaxCafes={setMaxCafes}
           />
           {/* Cafe List */}
-          <div className="bg-white shadow-lg rounded-2xl p-4 overflow-y-auto max-h-[60vh] flex-1">
+          <div className="bg-white shadow-lg rounded-2xl p-4 overflow-y-auto max-h-[50vh] flex-1">
             {loading ? (
               <p className="text-center text-gray-500">Loading cafes...</p>
             ) : cafes.length === 0 ? (
