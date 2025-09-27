@@ -13,6 +13,7 @@ export default function CafeList({ cafes, onSelectCafe }) {
           <p className="text-gray-600 text-sm">{cafe.address}</p>
           <p className="text-xs text-gray-400 mt-1">
             📍 Lat: {cafe.lat.toFixed(4)}, Lon: {cafe.lon.toFixed(4)}
+            📍 {cafe.distance.toFixed(2)} km away
           </p>
         </div>
       ))}

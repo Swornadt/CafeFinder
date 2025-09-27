@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+🗺️ Map & Marker System (Leaflet)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Integrated Leaflet map in React and displayed cafes as markers.
 
-## Available Scripts
+Implemented custom map center state (center) and dynamic updates.
 
-In the project directory, you can run:
+Created a MapFlyTo feature:
 
-### `npm start`
+Map animates and zooms into a cafe when a card is clicked.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Selected marker is highlighted with a custom icon.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Handled marker customization:
 
-### `npm test`
+Changed default marker icons for cafes and user location.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Fixed asset import path issues and ensured proper contrast.
 
-### `npm run build`
+📍 Geolocation & User Position
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Implemented getUserLocation() utility using navigator.geolocation API:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Graceful fallback to default location if access is denied.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Clean separation of logic into a reusable function.
 
-### `npm run eject`
+Displayed user’s current location as a map marker.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Used the user’s location as a reference point for distance calculations.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+🧠 Distance & Proximity Logic
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Learned and implemented the Haversine formula to calculate distance between two latitude/longitude points.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Used distance calculations to:
 
-## Learn More
+Filter cafes and sort by proximity.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Display only the nearest 10 cafes relative to user location or search center.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+🔎 Search & Geocoding
 
-### Code Splitting
+Added location search functionality:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Used a backend endpoint (/api/geocode) to convert text queries into coordinates.
 
-### Analyzing the Bundle Size
+Queried backend (/api/cafes) to find cafes near the searched region.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Combined geocoding result and user location to find nearest cafes in a region.
 
-### Making a Progressive Web App
+🧰 Code Organization & Refactoring
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Refactored core logic out of App.jsx into separate utility files for maintainability:
 
-### Advanced Configuration
+getUserLocation.js — geolocation logic.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+getDistance.js — Haversine formula utility.
 
-### Deployment
+fetchCafes.js — combined geocoding, cafe fetching, and distance filtering.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Improved readability and reusability of codebase.
 
-### `npm run build` fails to minify
+🧑‍💻 UI & UX Enhancements
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Adjusted map size and layout to improve balance with the cafe list.
+
+Limited the list length to nearest results for cleaner UI.
+
+Plan to show distance in cafe cards (enabled by Haversine logic).
+
+Discussed dynamic highlighting of markers when selected.
+
+Prepared UI for responsive, user-centered design (show relevant, nearby data first).
+
+
+| Concept                         | What You Did / Learned                                        |
+| ------------------------------- | ------------------------------------------------------------- |
+| **React state & props**         | Used state to control map center, selected cafe, and loading. |
+| **Leaflet Map API**             | Implemented dynamic fly-to, custom markers, and map layers.   |
+| **Geolocation API**             | Accessed user’s location and used it in calculations.         |
+| **Haversine Formula**           | Calculated real-world distances between coordinates.          |
+| **Async/Await & Promises**      | Managed asynchronous API calls cleanly.                       |
+| **Axios**                       | Used for geocoding and fetching nearby cafes from backend.    |
+| **Refactoring & modular code**  | Separated logic into utilities to keep components lean.       |
+| **Error handling & fallback**   | Handled geolocation errors and search input validation.       |
+| **Dynamic filtering & sorting** | Prioritized cafes by proximity.                               |
