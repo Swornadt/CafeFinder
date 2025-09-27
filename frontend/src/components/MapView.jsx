@@ -1,6 +1,6 @@
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
-import { defaultIcon, highlightedIcon, userIcon } from "../assets/markers";
+import { defaultIcon, highlightedIcon, userIcon } from "../utils/markers";
 import MapFlyTo from "../hooks/MapFlyTo";
 
 export default function MapView({ cafes, center, selectedCafe, userLocation }) {

@@ -3,8 +3,8 @@ import SearchBar from "./components/SearchBar";
 import CafeList from "./components/CafeList";
 import MapView from "./components/MapView";
 
-import { getUserLocation } from "./assets/getUserLocation";
-import { fetchNearestCafe } from "./assets/fetchCafes";
+import { getUserLocation } from "./utils/getUserLocation";
+import { fetchNearestCafe } from "./utils/fetchCafes";
 
 export default function App() {
   const [cafes, setCafes] = useState([]);

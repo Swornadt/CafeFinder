@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useMap } from "react-leaflet";
-import { mapFlyTo } from "../assets/mapFlyTo";
+import { mapFlyTo } from "../utils/mapFlyTo";
 
 export default function MapFlyTo({ cafe }) {
   const map = useMap();
