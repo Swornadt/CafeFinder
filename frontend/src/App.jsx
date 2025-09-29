@@ -89,6 +89,11 @@ export default function App() {
           />
         </div>
       </div>
+
+      {/* Footer */}
+      <footer className="bg-gray-900 text-gray-400 text-center py-4 mt-auto border-t border-gray-800">
+        © {new Date().getFullYear()} Sworna D. Tuladhar. All rights reserved.
+      </footer>
     </div>
   );
 }
