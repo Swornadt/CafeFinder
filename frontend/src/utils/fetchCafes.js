@@ -6,13 +6,13 @@ export async function fetchNearestCafe(location, userLocation = null, maxResults
 
   //finding coords from text location thru geoencoding
   const geoRes = await axios.get(
-    `http://localhost:5000/api/geocode?q=${encodeURIComponent(location)}`
+    `/api/geocode?q=${encodeURIComponent(location)}`
   );
   const { lat: regionLat, lon: regionLon } = geoRes.data;
 
   //finding cafess in the region
   const cafesRes = await axios.get(
-    `http://localhost:5000/api/cafes?lat=${regionLat}&lon=${regionLon}`
+    `/api/cafes?lat=${regionLat}&lon=${regionLon}`
   );
 
   //using user's location else fallback to region
