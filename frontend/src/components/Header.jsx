@@ -8,7 +8,7 @@ const Header = () => {
           Mapetite
         </h1>
       </div>
-      <div className="text-gray-500 text-sm font-medium">
+      <div className="text-gray-500 text-md font-medium">
         Quick Places Nearby to Eat!
       </div>
     </header>

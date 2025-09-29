@@ -7,6 +7,7 @@ import { getUserLocation } from "./utils/getUserLocation";
 import { fetchNearestCafe } from "./utils/fetchCafes";
 import ControlsCard from "./components/ControlsCard";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 export default function App() {
   const [cafes, setCafes] = useState([]);
@@ -90,10 +91,7 @@ export default function App() {
         </div>
       </div>
 
-      {/* Footer */}
-      <footer className="bg-gray-900 text-gray-400 text-center py-4 mt-auto border-t border-gray-800">
-        © {new Date().getFullYear()} Sworna D. Tuladhar. All rights reserved.
-      </footer>
+      <Footer />
     </div>
   );
 }
